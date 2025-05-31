@@ -4,6 +4,8 @@ import os
 import easyocr
 import threading
 from plate_ocr_func import *
+import warnings
+warnings.filterwarnings("ignore", message="'pin_memory' argument is set as true but no accelerator is found")
 
 
 def runyolo(cv2_display,url,plate_model_path):
@@ -16,7 +18,7 @@ def runyolo(cv2_display,url,plate_model_path):
 
         # Load  license plate detection
         plate_model = YOLO(plate_model_path).to(device)  # License plate detection model
-
+        
         reader = easyocr.Reader(['th', 'en'],gpu=False)
         plate_label = {
                 0: "normal_car",
@@ -133,7 +135,7 @@ while True:
     if status == True and not thread_running: 
         print("plate read start")
         cv2_display = True
-        url = "0530.mp4"
+        url = "test_vdo.mp4"
         plate_model_path = "test_plate.pt"
         thread_running = True
         # runyolo(cv2_display,url,plate_model_path)

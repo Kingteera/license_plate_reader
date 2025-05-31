@@ -290,11 +290,12 @@ def ocr_type_car(plate_img,plate_cls,dst_h,reader,thai_allowlist):
     province_part = preprocessing[split_height_1:, :]  # Bottom 30%
     #top_part = preprocess_for_ocr(top_part)
     #province_part = preprocess_for_ocr(province_part)
+    
     ocr_obj.extend([top_part, province_part])
     ocr_results = []
     for idx, img in enumerate(ocr_obj):
         if idx == 0:  # บน อักษร + ตัวเลข
-            result = reader.readtext(img)
+            result = reader.readtext(img,allowlist='กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮ0123456789')
         elif idx == 1:  # จังหวัด
             result = reader.readtext(img)
 
